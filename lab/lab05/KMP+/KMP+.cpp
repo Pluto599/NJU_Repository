@@ -10,7 +10,7 @@ using namespace std;
 // ababcde
 // 
 
-int* next(string pat)
+int* Next(string& pat)
 {
 	int* next = new int[pat.size()];
 	next[0] = (pat[0] == '*') ? -2 : -1;
@@ -37,6 +37,7 @@ int* next(string pat)
 
 	return next;
 }
+<<<<<<< HEAD:lab05/KMP+/KMP+.cpp
 <<<<<<< HEAD:lab05/KMP+/KMP+.cpp
 void update_next(string pat, int upd_i, int* next)
 {
@@ -75,24 +76,25 @@ bool find(string text, string& pat, int start)	//ï¿½Ö·ï¿½ï¿½ï¿½ï¿½ï¿½Ä£Ê½Æ¥ï¿½ï¿
 	int* next = Next(pat);
 	int t = start, p = 0;
 >>>>>>> cbfb347964def2b8469cde3aeea1a007826d561a:lab/lab05/KMP+/KMP+.cpp
+=======
+
+bool find(string text,  string& pat, int start)	//×Ö·û´®µÄÄ£Ê½Æ¥ÅäËã·¨
+{
+	//KMPËã·¨
+	int* next = Next(pat);
+	int t = start, p = 0;
+>>>>>>> parent of 265fc8e (KMP+ 2024/10/26 19:22):lab/lab05/KMP+/KMP+.cpp
 	while (t < text.size() && p < pat.size())
 	{
 		if (p == -1 || text[t] == pat[p] || pat[p] == '*')
 		{
-			if (pat[p] == '*')
-			{
-				string upd_p;
-				upd_p += pat_pre;
-				upd_p += text[t];
-				upd_p += pat_suff;
-				update_next(upd_p, p - 1, nxt);
-			}
 			t++;
 			p++;
 		}
 		else
-			p = nxt[p];
+			p = next[p];
 	}
+<<<<<<< HEAD:lab05/KMP+/KMP+.cpp
 <<<<<<< HEAD:lab05/KMP+/KMP+.cpp
 	if (p == pat.size())
 		return true;
@@ -102,6 +104,11 @@ bool find(string text, string& pat, int start)	//ï¿½Ö·ï¿½ï¿½ï¿½ï¿½ï¿½Ä£Ê½Æ¥ï¿½ï¿
 		return true;
 	else					//Æ¥ï¿½ï¿½Ê§ï¿½ï¿½
 >>>>>>> cbfb347964def2b8469cde3aeea1a007826d561a:lab/lab05/KMP+/KMP+.cpp
+=======
+	if (p == pat.size())	//Æ¥Åä³É¹¦
+		return true;
+	else					//Æ¥ÅäÊ§°Ü
+>>>>>>> parent of 265fc8e (KMP+ 2024/10/26 19:22):lab/lab05/KMP+/KMP+.cpp
 		return false;
 }
 
@@ -117,6 +124,7 @@ int main()
 
 <<<<<<< HEAD:lab05/KMP+/KMP+.cpp
 	int star = pat.find('*');
+<<<<<<< HEAD:lab05/KMP+/KMP+.cpp
 	string pat_pre, pat_suff;
 	for (int i = 0; i < star; i++)
 		pat_pre += pat[i];
@@ -127,10 +135,13 @@ int main()
 	int star = pat.find('*');// star ????
 	
 >>>>>>> cbfb347964def2b8469cde3aeea1a007826d561a:lab/lab05/KMP+/KMP+.cpp
+=======
+	
+>>>>>>> parent of 265fc8e (KMP+ 2024/10/26 19:22):lab/lab05/KMP+/KMP+.cpp
 
 	for (int i = 0; i < n; i++)
 	{
-		if (find(texts[i], pat, nxt,pat_pre, pat_suff))
+		if (find(texts[i], pat, 0))
 			cout << "true" << endl;
 		else
 			cout << "false" << endl;
