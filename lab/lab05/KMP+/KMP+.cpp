@@ -1,4 +1,5 @@
 #include<iostream>
+#include<string>
 using namespace std;
 
 // ab*d
@@ -23,8 +24,6 @@ int* Next(string& pat)
 			i++;
 			if (i == pat.size())
 				break;
-
-			// ÓÅ»¯£º±ÜÃâ¶à´Î»ØÍËÖ¸Õë
 			if (pat[i] == pat[k])
 				k = next[k];
 
@@ -39,9 +38,9 @@ int* Next(string& pat)
 	return next;
 }
 
-bool find(string text,  string& pat, int start)	//×Ö·û´®µÄÄ£Ê½Æ¥ÅäËã·¨
+bool find(string text, string& pat, int start)	//ï¿½Ö·ï¿½ï¿½ï¿½ï¿½ï¿½Ä£Ê½Æ¥ï¿½ï¿½ï¿½ã·¨
 {
-	//KMPËã·¨
+	//KMPï¿½ã·¨
 	int* next = Next(pat);
 	int t = start, p = 0;
 	while (t < text.size() && p < pat.size())
@@ -54,9 +53,9 @@ bool find(string text,  string& pat, int start)	//×Ö·û´®µÄÄ£Ê½Æ¥ÅäËã·¨
 		else
 			p = next[p];
 	}
-	if (p == pat.size())	//Æ¥Åä³É¹¦
+	if (p == pat.size())	//Æ¥ï¿½ï¿½É¹ï¿½
 		return true;
-	else					//Æ¥ÅäÊ§°Ü
+	else					//Æ¥ï¿½ï¿½Ê§ï¿½ï¿½
 		return false;
 }
 
@@ -70,7 +69,7 @@ int main()
 	for (int i = 0; i < n; i++)
 		cin >> texts[i];
 
-	int star = pat.find('*');
+	int star = pat.find('*');// star ????
 	
 
 	for (int i = 0; i < n; i++)
