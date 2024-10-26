@@ -1,4 +1,5 @@
 #include<iostream>
+#include<string>
 using namespace std;
 
 // ab*d
@@ -23,8 +24,6 @@ int* next(string pat)
 			i++;
 			if (i == pat.size())
 				break;
-
-			// ”≈ªØ£∫±‹√‚∂‡¥ŒªÿÕÀ÷∏’Î
 			if (pat[i] == pat[k])
 				k = next[k];
 
@@ -38,6 +37,7 @@ int* next(string pat)
 
 	return next;
 }
+<<<<<<< HEAD:lab05/KMP+/KMP+.cpp
 void update_next(string pat, int upd_i, int* next)
 {
 	int i = upd_i;
@@ -67,6 +67,14 @@ void update_next(string pat, int upd_i, int* next)
 bool find(string text,  string pat, int* nxt, string pat_pre, string pat_suff)
 {
 	int t = 0, p = 0;
+=======
+
+bool find(string text, string& pat, int start)	//ÔøΩ÷∑ÔøΩÔøΩÔøΩÔøΩÔøΩƒ£ Ω∆•ÔøΩÔøΩÔøΩ„∑®
+{
+	//KMPÔøΩ„∑®
+	int* next = Next(pat);
+	int t = start, p = 0;
+>>>>>>> cbfb347964def2b8469cde3aeea1a007826d561a:lab/lab05/KMP+/KMP+.cpp
 	while (t < text.size() && p < pat.size())
 	{
 		if (p == -1 || text[t] == pat[p] || pat[p] == '*')
@@ -85,9 +93,15 @@ bool find(string text,  string pat, int* nxt, string pat_pre, string pat_suff)
 		else
 			p = nxt[p];
 	}
+<<<<<<< HEAD:lab05/KMP+/KMP+.cpp
 	if (p == pat.size())
 		return true;
 	else
+=======
+	if (p == pat.size())	//∆•ÔøΩÔøΩ…πÔøΩ
+		return true;
+	else					//∆•ÔøΩÔøΩ ßÔøΩÔøΩ
+>>>>>>> cbfb347964def2b8469cde3aeea1a007826d561a:lab/lab05/KMP+/KMP+.cpp
 		return false;
 }
 
@@ -101,6 +115,7 @@ int main()
 	for (int i = 0; i < n; i++)
 		cin >> texts[i];
 
+<<<<<<< HEAD:lab05/KMP+/KMP+.cpp
 	int star = pat.find('*');
 	string pat_pre, pat_suff;
 	for (int i = 0; i < star; i++)
@@ -108,6 +123,10 @@ int main()
 	for (int i = star + 1; i < pat.size(); i++)
 		pat_suff += pat[i];
 	int* nxt = next(pat);
+=======
+	int star = pat.find('*');// star ????
+	
+>>>>>>> cbfb347964def2b8469cde3aeea1a007826d561a:lab/lab05/KMP+/KMP+.cpp
 
 	for (int i = 0; i < n; i++)
 	{
