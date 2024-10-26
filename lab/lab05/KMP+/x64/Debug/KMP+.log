@@ -1,3 +1,0 @@
-﻿  KMP+.cpp
-D:\DeskTop\KMP+\KMP+.cpp(73,11): warning C4267: “初始化”: 从“size_t”转换到“int”，可能丢失数据
-  KMP+.vcxproj -> D:\DeskTop\KMP+\x64\Debug\KMP+.exe
