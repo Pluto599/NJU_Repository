@@ -1,16 +1,7 @@
 #include<iostream>
-#include<string>
 using namespace std;
 
-// ab*d
-// -1 0 ? ?
-// ababcd
-// ab*de
-// 
-// ababcde
-// 
-
-int* Next(string& pat)
+int* next(string pat)
 {
 	int* next = new int[pat.size()];
 	next[0] = (pat[0] == '*') ? -2 : -1;
@@ -24,6 +15,8 @@ int* Next(string& pat)
 			i++;
 			if (i == pat.size())
 				break;
+
+			// ”≈ªØ£∫±‹√‚∂‡¥ŒªÿÕÀ÷∏’Î
 			if (pat[i] == pat[k])
 				k = next[k];
 
@@ -37,8 +30,6 @@ int* Next(string& pat)
 
 	return next;
 }
-<<<<<<< HEAD:lab05/KMP+/KMP+.cpp
-<<<<<<< HEAD:lab05/KMP+/KMP+.cpp
 void update_next(string pat, int upd_i, int* next)
 {
 	int i = upd_i;
@@ -52,9 +43,9 @@ void update_next(string pat, int upd_i, int* next)
 			if (i == pat.size())
 				break;
 
-			//// ”≈ªØ£∫±‹√‚∂‡¥ŒªÿÕÀ÷∏’Î
-			//if (pat[i] == pat[k])
-			//	k = next[k];
+			// optimization: avoid stepping back repeatedly
+			if (pat[i] == pat[k])
+				k = next[k];
 
 			next[i] = k;
 		}
@@ -68,47 +59,27 @@ void update_next(string pat, int upd_i, int* next)
 bool find(string text,  string pat, int* nxt, string pat_pre, string pat_suff)
 {
 	int t = 0, p = 0;
-=======
-
-bool find(string text, string& pat, int start)	//ÔøΩ÷∑ÔøΩÔøΩÔøΩÔøΩÔøΩƒ£ Ω∆•ÔøΩÔøΩÔøΩ„∑®
-{
-	//KMPÔøΩ„∑®
-	int* next = Next(pat);
-	int t = start, p = 0;
->>>>>>> cbfb347964def2b8469cde3aeea1a007826d561a:lab/lab05/KMP+/KMP+.cpp
-=======
-
-bool find(string text,  string& pat, int start)	//◊÷∑˚¥Æµƒƒ£ Ω∆•≈‰À„∑®
-{
-	//KMPÀ„∑®
-	int* next = Next(pat);
-	int t = start, p = 0;
->>>>>>> parent of 265fc8e (KMP+ 2024/10/26 19:22):lab/lab05/KMP+/KMP+.cpp
 	while (t < text.size() && p < pat.size())
 	{
 		if (p == -1 || text[t] == pat[p] || pat[p] == '*')
 		{
+			if (pat[p] == '*')
+			{
+				string upd_p;
+				upd_p += pat_pre;
+				upd_p += text[t];
+				upd_p += pat_suff;
+				update_next(upd_p, p - 1, nxt);
+			}
 			t++;
 			p++;
 		}
 		else
-			p = next[p];
+			p = nxt[p];
 	}
-<<<<<<< HEAD:lab05/KMP+/KMP+.cpp
-<<<<<<< HEAD:lab05/KMP+/KMP+.cpp
 	if (p == pat.size())
 		return true;
 	else
-=======
-	if (p == pat.size())	//∆•ÔøΩÔøΩ…πÔøΩ
-		return true;
-	else					//∆•ÔøΩÔøΩ ßÔøΩÔøΩ
->>>>>>> cbfb347964def2b8469cde3aeea1a007826d561a:lab/lab05/KMP+/KMP+.cpp
-=======
-	if (p == pat.size())	//∆•≈‰≥…π¶
-		return true;
-	else					//∆•≈‰ ß∞‹
->>>>>>> parent of 265fc8e (KMP+ 2024/10/26 19:22):lab/lab05/KMP+/KMP+.cpp
 		return false;
 }
 
@@ -122,26 +93,17 @@ int main()
 	for (int i = 0; i < n; i++)
 		cin >> texts[i];
 
-<<<<<<< HEAD:lab05/KMP+/KMP+.cpp
 	int star = pat.find('*');
-<<<<<<< HEAD:lab05/KMP+/KMP+.cpp
 	string pat_pre, pat_suff;
 	for (int i = 0; i < star; i++)
 		pat_pre += pat[i];
 	for (int i = star + 1; i < pat.size(); i++)
 		pat_suff += pat[i];
 	int* nxt = next(pat);
-=======
-	int star = pat.find('*');// star ????
-	
->>>>>>> cbfb347964def2b8469cde3aeea1a007826d561a:lab/lab05/KMP+/KMP+.cpp
-=======
-	
->>>>>>> parent of 265fc8e (KMP+ 2024/10/26 19:22):lab/lab05/KMP+/KMP+.cpp
 
 	for (int i = 0; i < n; i++)
 	{
-		if (find(texts[i], pat, 0))
+		if (find(texts[i], pat, nxt,pat_pre, pat_suff))
 			cout << "true" << endl;
 		else
 			cout << "false" << endl;
