@@ -1,0 +1,18 @@
+{
+    "files.associations": {
+        "stack": "cpp",
+        "map": "cpp",
+        "array": "cpp",
+        "atomic": "cpp",
+        "deque": "cpp",
+        "iosfwd": "cpp",
+        "iterator": "cpp",
+        "ranges": "cpp",
+        "span": "cpp",
+        "vector": "cpp",
+        "xstring": "cpp",
+        "xutility": "cpp",
+        "iostream": "cpp",
+        "xiosbase": "cpp"
+    }
+}
