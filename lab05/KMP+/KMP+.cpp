@@ -16,7 +16,6 @@ int* next(string pat)
 			if (i == pat.size())
 				break;
 
-			// 优化：避免多次回退指针
 			if (pat[i] == pat[k])
 				k = next[k];
 
