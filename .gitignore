@@ -1,1 +1,6 @@
 .vs
+*.sln
+*.vcxproj
+*.vcxproj.filter
+*.vcxproj.user
+.\lab05\KMP+\x64
