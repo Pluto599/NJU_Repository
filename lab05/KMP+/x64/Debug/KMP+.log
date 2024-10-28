@@ -1,4 +1,2 @@
 ﻿  KMP+.cpp
-D:\DeskTop\DataStructures-Lab-main\lab05\KMP+\KMP+.cpp(104,11): warning C4267: “初始化”: 从“size_t”转换到“int”，可能丢失数据
-  LINK : 没有找到 D:\DeskTop\DataStructures-Lab-main\lab05\KMP+\x64\Debug\KMP+.exe 或上一个增量链接没有生成它；正在执行完全链接
-  KMP+.vcxproj -> D:\DeskTop\DataStructures-Lab-main\lab05\KMP+\x64\Debug\KMP+.exe
+  KMP+.vcxproj -> D:\DeskTop\DataStructures-Lab\lab05\KMP+\x64\Debug\KMP+.exe
