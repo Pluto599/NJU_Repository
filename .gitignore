@@ -1,6 +1,22 @@
-.vs
+# 网络问题
+# git config --global --unset http.proxy
+# git config --global --unset https.proxy
+
+# 例外情况：允许 .cpp 文件
+!*.cpp
+
+# 忽略特定目录和文件
+.vs/
+.vscode/
+*.exe
+*.obj
 *.sln
+*.pdb
+*.tlog
+*.ilk
+*.log
+*.idb
+*.user
 *.vcxproj
-*.vcxproj.filter
+*.vcxproj.filters
 *.vcxproj.user
-.\lab05\KMP+\x64

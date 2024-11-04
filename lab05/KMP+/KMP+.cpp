@@ -15,7 +15,11 @@ int* next(string pat)
 			i++;
 			if (i == pat.size())
 				break;
-			next[i] = k;
+
+			if (pat[i] == pat[k])
+				k = next[k];
+
+			next[i] = (pat[i] == '*') ? -2 : k;
 		}
 		else
 		{
