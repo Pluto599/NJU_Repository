@@ -1,0 +1,1 @@
+DRAM stores each bit as charge on a capacitor.
