@@ -1,1 +1,2 @@
 D:\DeskTop\InventoryCheck\x64\Debug\InventoryCheck.exe
+D:\DeskTop\DataStructures-Lab\lab08\InventoryCheck\x64\Debug\InventoryCheck.exe

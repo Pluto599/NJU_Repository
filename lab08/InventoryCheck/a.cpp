@@ -20,7 +20,6 @@ class BST
 {
 public:
 	BST() :root(nullptr) {}
-	BST(int n);
 
 	bool insert(int k) { return insert(k, root); }
 	bool remove(int k) { return remove(k, root); }
@@ -32,17 +31,6 @@ protected:
 	bool remove(int k, BSTNode*& p);
 	void LevelOrderDisplay(BSTNode* t);
 };
-
-BST::BST(int n)
-{
-	while (n > 0)
-	{
-		int k;
-		cin >> k;
-		insert(k);
-		n--;
-	}
-}
 
 bool BST::insert(int k, BSTNode*& p)
 {
@@ -117,7 +105,13 @@ int main()
 {
 	int n, m;
 	cin >> n >> m;
-	BST tree(n);
+	BST tree;
+	for (int i = 0; i < n; i++)
+	{
+		int x;
+		cin >> x;
+		tree.insert(x);
+	}
 	for (int i = 0; i < m; i++)
 	{
 		int x;
