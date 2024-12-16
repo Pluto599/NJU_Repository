@@ -5,15 +5,15 @@ using namespace std;
 template <class T>
 struct BinTreeNode {
 	T data;
-	BinTreeNode<T>* leftChild, * rightChild;
+	BinTreeNode<T>* leftChild, * rightChild, * parent;
 
 	BinTreeNode()
 	{
-		leftChild = nullptr;  rightChild = nullptr;
+		leftChild = nullptr;  rightChild = nullptr; parent = nullptr;
 	}
-	BinTreeNode(T x, BinTreeNode<T>* l = nullptr, BinTreeNode<T>* r = nullptr)
+	BinTreeNode(T x, BinTreeNode<T>* l = nullptr, BinTreeNode<T>* r = nullptr, BinTreeNode<T>* p = nullptr)
 	{
-		data = x;  leftChild = l;  rightChild = r;
+		data = x;  leftChild = l;  rightChild = r; parent = p;
 	}
 };
 
@@ -25,38 +25,62 @@ public:
 	BinaryTree(T value) :RefValue(value), root(nullptr) {}
 	~BinaryTree() { Destroy(root); }
 
-	void CreateBinTree(int len) { CreateBinTree(len, root); }
-
-	void Solution()
+	void CreateBinTree(int len) 
 	{
-		//ans = 0;
+		CreateBinTree(len, root); 
+		root->parent = nullptr;
+		setParent(root);
+	}
 
-		// recursion: this node Y/N -- child N/Y/N
-		// how to get res ?
-		// 
-
-		 val = 0;
-		 crusade(root, 0);
-
-		 val = 0;
-		 crusade(root, 1);
-
+	void Solution() {
+		ans = 0;
+		if (lamp(root) == 0)
+			ans++;
 		cout << ans;
 	}
+
+	int lamp(BinTreeNode<T>* p) {
+		if (!p) return 1;
+
+		int left = lamp(p->leftChild);
+		int right = lamp(p->rightChild);
+
+		if (left == 0 || right == 0) {
+			ans++;
+			return 2;
+		}
+
+		if (left == 2 || right == 2)
+			return 1;
+
+		return 0;
+	}
+
 
 protected:
 	BinTreeNode<T>* root;
 	T RefValue;
-
-	long long ans;
-	long long val;
-
 	void CreateBinTree(int len, BinTreeNode<T>*& subTree);
 	void Destroy(BinTreeNode<T>*& subTree);
+	void setParent(BinTreeNode<T>*& subTree)
+	{
+		if (subTree != nullptr)
+		{
+			if (subTree->leftChild)
+			{
+				subTree->leftChild->parent = subTree;
+				setParent(subTree->leftChild);
+			}
+			if (subTree->rightChild)
+			{
+				subTree->rightChild->parent = subTree;
+				setParent(subTree->rightChild);
+			}
+			
+		}
+	}
 
-	//void crusade(BinTreeNode<int>* t, bool b);
-	//long long crusade(BinTreeNode<int>* t);
-	void crusade(BinTreeNode<int>* t, bool b);
+	int ans = 0;
 
 };
 
@@ -102,6 +126,7 @@ void BinaryTree<T>::CreateBinTree(int len, BinTreeNode<T>*& subTree)
 
 		len -= 2;
 	}
+
 }
 
 template<class T>
@@ -116,43 +141,15 @@ void BinaryTree<T>::Destroy(BinTreeNode<T>*& subTree)
 	}
 }
 
-template<class T>
-void BinaryTree<T>::crusade(BinTreeNode<int>* t, bool b)
-{
-	ans = ans > val ? ans : val;
 
-	if (t == nullptr)
-		return;
 
-	if (b)
-	{
-		val += t->data;
-		crusade(t->leftChild, 0);
-		crusade(t->rightChild, 0);
-	}
-	else
-	{
-		int curV = val;
-		crusade(t->leftChild, 1);
-		int newV = val;
-		val = curV;
-		crusade(t->leftChild, 0);
-		val = val > newV ? val : newV;		
-		
-		curV = val;
-		crusade(t->rightChild, 1);
-		newV = val;
-		val = curV;
-		crusade(t->rightChild, 0);
-		val = val > newV ? val : newV;
-	}
-}
+
 
 int main()
 {
 	int n;
 	cin >> n;
-	BinaryTree<int>* tree = new BinaryTree<int>(-1);
+	BinaryTree<int>* tree = new BinaryTree<int>(0);
 	tree->CreateBinTree(n);
 
 	tree->Solution();
