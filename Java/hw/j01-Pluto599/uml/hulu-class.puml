@@ -1,0 +1,137 @@
+@startuml
+package "hulu" {
+    class World{
+        ~repaintCallback: Runnable
+        +{static} WIDTH: int {readOnly} = 22
+        +{static} HEIGHT: int {readOnly} = 7
+        -tiles: Tile[][]
+        -bros: Hulu[]
+        -sortSteps: String[]
+
+        +World(repaintCallback: Runnable, method: int)
+        -parsePlan(plan: String): String[]
+        +next(step: int): void
+        -getBroByRank(bros: Hulu[], rank: int): Hulu
+        +steps(): String[]
+        +getBros(): Hulu[]
+        +get(x: int, y: int): Thing
+        +put(t: Thing, x: int, y: int): void
+    }
+
+    class Thing {
+        #world: World
+        +tile: Tile
+
+        +getX(): int
+        +getY(): int
+        +setTile(tile: Tile): void
+
+        +Thing()
+
+        -color: Color {readOnly}
+        +getColor(): Color
+
+        -glyph: char {readOnly}
+        +getGlyph(): char
+    }
+
+    class Tile{
+        -thing: Thing
+        -xPos: int
+        -yPos: int
+
+        +getThing(): Thing
+        +setThing(thing: Thing): void
+        +getxPos(): int
+        +setxPos(xPos: int): void
+        +getyPos(): int
+        +setyPos(yPos: int): void
+
+        +Tile()
+        +Tile(xPos: int, yPos: int)
+    }
+
+    class Grass {
+        +Grass(world: World)
+    }
+
+    class Creature {
+        +Creature(color: Color, glyph: char, world: World)
+        +moveTo(xPos: int, yPos: int): void
+    }
+
+    class Hulu {
+        -rank: int
+
+        -Tuple2<A, B>
+
+        +Hulu(color: Color, rank: int, world: World)
+        +getRank(): int
+        +toString(): String
+        +compareTo(o: Hulu): int
+        +swap(another: Hulu, repaintCallBack: Runnable): void
+        +moveTo(xPos: int, yPos: int): void
+    }
+    class Tuple2 {
+        + A first
+        + B second
+        + Tuple2(A first, B second)
+    }
+    enum Direction {
+        UP
+        DOWN
+        LEFT
+        RIGHT
+        UP_LEFT
+        UP_RIGHT
+        DOWN_LEFT
+        DOWN_RIGHT
+    }
+
+    interface Sorter {
+        +load(brothers: Hulu[]): void
+        +sort(): void
+        +getPlan(): String
+    }
+
+    class BubbleSorter {
+        -a: Hulu[]
+
+        +load(a: Hulu[]): void
+        -swap(i: int, j: int): void
+
+        -plan: String
+        +sort(): void
+        +getPlan(): String
+    }
+
+    class InsertSorter {
+        -a: Hulu[]
+
+        +load(a: Hulu[]): void
+        -swap(i: int, j: int): void
+
+        -plan: String
+        +sort(): void
+        +getPlan(): String
+    }
+    
+    Grass --|> Thing
+    Creature --|> Thing
+    Hulu --|> Creature
+
+    BubbleSorter ..|> Sorter
+    InsertSorter ..|> Sorter
+
+    World --> "22*7" Tile : has
+    World --> "7" Hulu : has
+
+    Thing -->"1" World : has
+    Thing "1"<-->"1" Tile : has
+
+    Hulu .. Tuple2 : uses
+    Hulu .. Direction : uses
+
+}
+
+@enduml
