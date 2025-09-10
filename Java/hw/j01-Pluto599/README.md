@@ -2,6 +2,10 @@
 
 # J01 - 231220105 刘佳璇
 
+演示视频：【【NJU】高级Java程序设计2025秋-J01】 https://www.bilibili.com/video/BV1PYYLzQEGG/?share_source=copy_web&vd_source=144cee55c0fac119fdd03eb502bb0b38
+
+
+
 ## 面向对象思想
 
 ### 封装
