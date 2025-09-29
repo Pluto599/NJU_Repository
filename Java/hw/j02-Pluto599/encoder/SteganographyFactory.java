@@ -31,7 +31,7 @@ public class SteganographyFactory {
 
     public static void main(String[] args) throws IOException {
 
-        SteganographyFactory.getSteganography("hulu/InsertSorter.java", "resources/bubble.jpeg");
+        SteganographyFactory.getSteganography("hulu/InsertSorter.java", "issac_logo.jpeg");
 
     }
 
