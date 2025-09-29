@@ -1,0 +1,52 @@
+@startuml
+package "hulu" {
+
+    class Thing {
+        -x: int
+        -y: int
+        -tile: Tile<? extends Thing>
+        +Thing()
+        +getX(): int
+        +getY(): int
+        +getTile(): Tile
+        +setTile(tile: Tile): void
+        +moveTo(x: int, y: int): void
+    }
+
+    class Creature {
+        -color: Color
+        -glyph: char
+        #world: World
+        +Creature(color: Color, glyph: char, world: World)
+        +getColor(): Color
+        +getGlyph(): char
+        +getWorld(): World
+    }
+
+    class Hulu {
+        -rank: int
+        +Hulu(color: Color, rank: int, world: World)
+        +getRank(): int
+        +toString(): String
+        +compareTo(o: Hulu): int
+        +swap(another: Hulu): void
+    }
+    class Tile{
+        -x: int
+        -y: int
+        -thing: Thing
+        +Tile(x: int, y: int)
+        +getX(): int
+        +getY(): int
+        +getThing(): Thing
+        +setThing(thing: Thing): void
+        +isEmpty(): boolean
+    }
+
+    Creature -right-|> Thing
+    Hulu -up-|> Creature
+    Thing --> "1" Tile : has
+
+}
+
+@enduml
