@@ -1,0 +1,53 @@
+chmod +x utils/*.pl
+
+生产者-消费者问题
+
+生产者—->缓冲区—->消费者
+
+有界缓冲区的生产者-消费者问题描述：
+
+    一个或多个生产者在生产数据后放在一个缓冲区里
+    单个消费者从缓冲区取出数据处理
+    任何时刻只能有一个生产者或消费者可访问缓冲区
+
+问题分析：
+
+    任何时刻只能有一个进程（线程）操作缓冲区（互斥访问）
+    缓冲区空时，消费者必须等待生产者（条件同步）
+    缓冲区满时，生产者必须等待消费者（条件同步）
+
+用信号量描述每个约束：
+
+    二进制信号量mutex
+    资源信号量fullBuffers
+    资源信号量emptyBuffers
+
+伪代码描述一下：
+
+class BoundedBuffer {
+    mutex = new Semaphore(1);
+    fullBuffers = new Semaphore(0);
+    emptyBuffers = new Semaphore(n);
+}
+
+BoundedBuffer::Deposit(c){               
+  emptyBuffers->P();                       
+  mutex->P();                              
+  Add c to the buffer;                     
+  mutex->V();                              
+  fullBuffers->V();                        
+}                                        
+
+BoundedBuffer::Remove(c){
+  fullBuffers->P();
+  mutex->P();
+  Remove c from buffer;
+  mutex->V();
+  emptyBuffers->V();
+}
+
+生产者-消费者问题：
+	4个生产者，1个消费者同时运行
+	生产者生产，printf("Producer %d: produce\n", id);
+	消费者消费，printf("Consumer : consume\n");
+	任意P、V及生产、消费动作之间添加sleep(128);

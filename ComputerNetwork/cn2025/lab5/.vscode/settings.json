@@ -1,0 +1,7 @@
+{
+    "files.associations": {
+        "assert.h": "c",
+        "arp.h": "c",
+        "checksum.h": "c"
+    }
+}

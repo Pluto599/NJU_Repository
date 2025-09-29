@@ -1,0 +1,49 @@
+root@cn:/home/pluto559/Desktop/cn2025/lab5# ./router
+DEBUG: find the following interfaces:  r1-eth0 r1-eth1 r1-eth2.
+Routing table of 3 entries has been loaded.
+
+DEBUG: got packet from r1-eth0, 98 bytes, proto: 0x0800
+DEBUG: handle IP packet
+DEBUG: other IP packet received, src_ip: 10.0.1.11, dst_ip: 10.0.3.11
+DEBUG: IP packet forwarded, src_ip: 10.0.1.11, dst_ip: 10.0.3.11
+DEBUG: ARP cache miss, appending packet to arpcache and sending ARP request
+DEBUG:  create new arp request, ip: 10.0.3.11
+DEBUG: send arp request, src_ip: 10.0.3.1, dst_ip: 10.0.3.11
+DEBUG: ARP request sent, src_ip: 10.0.3.1, dst_ip: 10.0.3.11
+DEBUG: got packet from r1-eth0, 98 bytes, proto: 0x0800
+DEBUG: handle IP packet
+DEBUG: other IP packet received, src_ip: 10.0.1.11, dst_ip: 10.0.3.11
+DEBUG: IP packet forwarded, src_ip: 10.0.1.11, dst_ip: 10.0.3.11
+DEBUG: ARP cache miss, appending packet to arpcache and sending ARP request
+DEBUG: append packet to existing arp request, ip: 10.0.3.11
+DEBUG: arp request retry, ip: 10.0.3.11, retries: 1
+DEBUG: send arp request again, src_ip: 10.0.3.1, dst_ip: 10.0.3.11
+DEBUG: ARP request sent, src_ip: 10.0.3.1, dst_ip: 10.0.3.11
+
+DEBUG: got packet from r1-eth0, 98 bytes, proto: 0x0800
+DEBUG: handle IP packet
+DEBUG: other IP packet received, src_ip: 10.0.1.11, dst_ip: 10.0.3.11
+DEBUG: IP packet forwarded, src_ip: 10.0.1.11, dst_ip: 10.0.3.11
+DEBUG: ARP cache miss, appending packet to arpcache and sending ARP request
+DEBUG: append packet to existing arp request, ip: 10.0.3.11
+DEBUG: arp request retry, ip: 10.0.3.11, retries: 2
+DEBUG: send arp request again, src_ip: 10.0.3.1, dst_ip: 10.0.3.11
+DEBUG: ARP request sent, src_ip: 10.0.3.1, dst_ip: 10.0.3.11
+DEBUG: arp request retry, ip: 10.0.3.11, retries: 3
+DEBUG: send arp request again, src_ip: 10.0.3.1, dst_ip: 10.0.3.11
+DEBUG: ARP request sent, src_ip: 10.0.3.1, dst_ip: 10.0.3.11
+DEBUG: arp request retry, ip: 10.0.3.11, retries: 4
+DEBUG: send arp request again, src_ip: 10.0.3.1, dst_ip: 10.0.3.11
+DEBUG: ARP request sent, src_ip: 10.0.3.1, dst_ip: 10.0.3.11
+
+DEBUG: got packet from r1-eth0, 42 bytes, proto: 0x0806
+DEBUG: handle ARP packet
+DEBUG: Received ARP packet, op: REQUEST, src_ip: 10.0.1.11, dst_ip: 10.0.1.1
+DEBUG: ARP request received, src_ip: 10.0.1.11, dst_ip: 10.0.1.1
+DEBUG: ARP reply sent, src_ip: 10.0.1.1, dst_ip: 10.0.1.11
+DEBUG: arp request retry, ip: 10.0.3.11, retries: 5
+DEBUG: arp request failed, ip: 10.0.3.11
+DEBUG: retry 5 times without reply, send icmp error packet
+DEBUG: icmp_send_packet: type: 3, code: 1
+DEBUG: icmp_send_packet: send icmp error packet, type: 3, code: 1
+DEBUG: ip_send_packet: sending packet with src_ip: 10.0.1.1 , dst_ip: 10.0.1.11 , via r1-eth0
