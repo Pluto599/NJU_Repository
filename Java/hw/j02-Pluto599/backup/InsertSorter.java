@@ -1,4 +1,7 @@
-package hulu;
+package backup;
+
+import hulu.Hulu;
+import hulu.Sorter;
 
 public class InsertSorter implements Sorter{
 	private Hulu[] a;

@@ -52,7 +52,7 @@ public class World {
         this.put(bros[6], 16, 3);
 
         // SteganographyClassLoader loader = new SteganographyClassLoader(
-        //         new URL("https://i.postimg.cc/50vcc4fk/hulu-Insert-Sorter.png"));
+        //         new URL("https://i.postimg.cc/GmbrHk5c/hulu-Insert-Sorter.png"));
         URL imgUrl = World.class.getClassLoader().getResource("hulu.InsertSorter.png");
         SteganographyClassLoader loader = new SteganographyClassLoader(imgUrl);
 
