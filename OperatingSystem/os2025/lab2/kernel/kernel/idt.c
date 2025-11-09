@@ -1,17 +1,18 @@
 #include "x86.h"
 #include "device.h"
 
-#define INTERRUPT_GATE_32   0xE
-#define TRAP_GATE_32        0xF
+#define INTERRUPT_GATE_32 0xE
+#define TRAP_GATE_32 0xF
 
 // TODO2: finished
-// 实现 setIntr() 和 setTrap() 函数，初始化中断门和陷阱门
+// 实现 setIntr() 和 setTrap() 函数，初始化中断门和陷阱
 // 完成 initIdt() 函数，设置各种中断向量
 
 /* IDT表的内容 */
 struct GateDescriptor idt[NR_IRQ]; // NR_IRQ=256, defined in x86/cpu.h
 /* 初始化一个中断门(interrupt gate) */
-static void setIntr(struct GateDescriptor *ptr, uint32_t selector, uint32_t offset, uint32_t dpl) {
+static void setIntr(struct GateDescriptor *ptr, uint32_t selector, uint32_t offset, uint32_t dpl)
+{
 	// TODO: 初始化interrupt gate
 	ptr->offset_15_0 = offset & 0xffff;
 	ptr->segment = selector << 3;
@@ -24,7 +25,8 @@ static void setIntr(struct GateDescriptor *ptr, uint32_t selector, uint32_t offs
 }
 
 /* 初始化一个陷阱门(trap gate) */
-static void setTrap(struct GateDescriptor *ptr, uint32_t selector, uint32_t offset, uint32_t dpl) {
+static void setTrap(struct GateDescriptor *ptr, uint32_t selector, uint32_t offset, uint32_t dpl)
+{
 	// TODO: 初始化trap gate
 	ptr->offset_15_0 = offset & 0xffff;
 	ptr->segment = selector << 3;
@@ -40,25 +42,26 @@ static void setTrap(struct GateDescriptor *ptr, uint32_t selector, uint32_t offs
 void irqEmpty();
 void irqErrorCode();
 
-void irqDoubleFault(); // 0x8
-void irqInvalidTSS(); // 0xa
+void irqDoubleFault();	 // 0x8
+void irqInvalidTSS();	 // 0xa
 void irqSegNotPresent(); // 0xb
 void irqStackSegFault(); // 0xc
 void irqGProtectFault(); // 0xd
-void irqPageFault(); // 0xe
-void irqAlignCheck(); // 0x11
-void irqSecException(); // 0x1e
-void irqKeyboard(); 
+void irqPageFault();	 // 0xe
+void irqAlignCheck();	 // 0x11
+void irqSecException();	 // 0x1e
+void irqKeyboard();
 void irqTimer(); // 0x20
 
 void irqSyscall();
 
-
-//256 interrupt vector
-void initIdt() {
+// 256 interrupt vector
+void initIdt()
+{
 	int i;
 	/* 为了防止系统异常终止，所有irq都有处理函数(irqEmpty)。 */
-	for (i = 0; i < NR_IRQ; i ++) {
+	for (i = 0; i < NR_IRQ; i++)
+	{
 		setTrap(idt + i, SEG_KCODE, (uint32_t)irqEmpty, DPL_KERN);
 	}
 	/*init your idt here 初始化 IDT 表, 为中断设置中断处理函数*/
@@ -72,11 +75,11 @@ void initIdt() {
 	setTrap(idt + 0xe, SEG_KCODE, (uint32_t)irqPageFault, DPL_KERN);
 	setTrap(idt + 0x11, SEG_KCODE, (uint32_t)irqAlignCheck, DPL_KERN);
 	setTrap(idt + 0x1e, SEG_KCODE, (uint32_t)irqSecException, DPL_KERN);
-	
+
 	setIntr(idt + 0x20, SEG_KCODE, (uint32_t)irqTimer, DPL_KERN);
 	setIntr(idt + 0x21, SEG_KCODE, (uint32_t)irqKeyboard, DPL_KERN);
 	setIntr(idt + 0x80, SEG_KCODE, (uint32_t)irqSyscall, DPL_USER);
 
 	/* 写入IDT */
-	saveIdt(idt, sizeof(idt));//use lidt
+	saveIdt(idt, sizeof(idt)); // use lidt
 }
