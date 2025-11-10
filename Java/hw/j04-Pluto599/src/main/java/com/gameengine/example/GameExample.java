@@ -9,7 +9,8 @@ import com.gameengine.math.Vector2;
 import com.gameengine.objects.*;
 import com.gameengine.scene.Scene;
 
-import java.util.List;
+import java.awt.Toolkit;
+import java.awt.Dimension;
 import java.util.Random;
 
 /**
@@ -20,8 +21,14 @@ public class GameExample {
         System.out.println("启动游戏引擎...");
 
         try {
-            // 创建游戏引擎
-            GameEngine engine = new GameEngine(800, 600, "游戏引擎");
+            // 创建全屏游戏引擎
+            Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+            int screenWidth = (int) screenSize.getWidth();
+            int screenHeight = (int) screenSize.getHeight();
+            System.out.println("屏幕尺寸: " + screenWidth + "x" + screenHeight);
+
+            // 创建游戏引擎（全屏）
+            GameEngine engine = new GameEngine(screenWidth, screenHeight, "游戏引擎");
 
             // 创建游戏场景
             Scene gameScene = new Scene("GameScene") {
@@ -29,6 +36,8 @@ public class GameExample {
                 private Random random;
                 private float time;
                 private GameLogic gameLogic;
+                private int gameWidth;
+                private int gameHeight;
 
                 @Override
                 public void initialize() {
@@ -36,7 +45,9 @@ public class GameExample {
                     this.renderer = engine.getRenderer();
                     this.random = new Random();
                     this.time = 0;
-                    this.gameLogic = new GameLogic(this);
+                    this.gameWidth = screenWidth;
+                    this.gameHeight = screenHeight;
+                    this.gameLogic = new GameLogic(this, gameWidth, gameHeight);
 
                     // 创建游戏对象
                     createPlayer();
@@ -63,8 +74,8 @@ public class GameExample {
 
                 @Override
                 public void render() {
-                    // 绘制背景
-                    renderer.drawRect(0, 0, 800, 600, 0.1f, 0.1f, 0.2f, 1.0f);
+                    // 绘制背景（全屏）
+                    renderer.drawRect(0, 0, gameWidth, gameHeight, 0.1f, 0.1f, 0.2f, 1.0f);
 
                     // 操作提示
                     renderer.drawText("WASD/上下左右 移动", 10, 25, 15f, 1f, 1f, 1f, 1f);
@@ -81,12 +92,16 @@ public class GameExample {
                 }
 
                 private void createPlayer() {
-                    // 创建葫芦娃 - 所有部位都在一个GameObject中
-                    Player player = Player.getInstance("Player", this, renderer);
+                    // 创建玩家在屏幕中心
+                    float centerX = gameWidth / 2.0f;
+                    float centerY = gameHeight / 2.0f;
+                    Player player = Player.getInstance("Player", this, renderer, centerX, centerY);
                     addGameObject(player);
                 }
 
                 private void createEnemies() {
+                    // 设置敌人生成的游戏尺寸
+                    Enemy.setGameDimensions(gameWidth, gameHeight);
                     for (int i = 0; i < 200; i++) {
                         createEnemy();
                     }
@@ -117,13 +132,13 @@ public class GameExample {
                         }
                     };
 
-                    // 随机位置
+                    // 随机位置（全屏范围内）
                     Vector2 position = new Vector2(
-                            random.nextFloat() * 800,
-                            random.nextFloat() * 600);
+                            random.nextFloat() * gameWidth,
+                            random.nextFloat() * gameHeight);
 
                     // 添加变换组件
-                    TransformComponent transform = decoration.addComponent(new TransformComponent(position));
+                    decoration.addComponent(new TransformComponent(position));
 
                     // 添加渲染组件
                     RenderComponent render = decoration.addComponent(new RenderComponent(

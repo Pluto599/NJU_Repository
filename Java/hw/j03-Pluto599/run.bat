@@ -1,15 +1,15 @@
 @echo off
 chcp 65001 > nul
 
-echo 启动游戏引擎...
+echo Starting game engine...
 
-REM 编译
+REM Compile
 call compile.bat
 
 if %errorlevel% equ 0 (
-    echo 运行游戏...
-    java -cp build\classes com.gameengine.example.GameExample
+    echo Running game...
+    java -cp build/classes com.gameengine.example.GameExample
 ) else (
-    echo 编译失败，无法运行游戏
+    echo Compilation failed, cannot run game
     exit /b 1
 )

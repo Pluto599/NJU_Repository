@@ -12,17 +12,27 @@ import com.gameengine.graphics.Renderer;
 
 public class Enemy extends GameObject {
 	private static final Random random = new Random();
+	private static int gameWidth = 800; // 默认值
+	private static int gameHeight = 600; // 默认值
+
+	/**
+	 * 设置游戏屏幕尺寸（用于敌人生成位置）
+	 */
+	public static void setGameDimensions(int width, int height) {
+		gameWidth = width;
+		gameHeight = height;
+	}
 
 	public Enemy(String name, Renderer renderer) {
 		super(name);
 
-		// 随机位置
+		// 随机位置（动态适配屏幕尺寸）
 		Vector2 position = new Vector2(
-				random.nextFloat() * 800,
-				random.nextFloat() * 600);
+				random.nextFloat() * gameWidth,
+				random.nextFloat() * gameHeight);
 
 		// 添加变换组件
-		TransformComponent transform = this.addComponent(new TransformComponent(position));
+		this.addComponent(new TransformComponent(position));
 
 		// 添加渲染组件 - 改为矩形，使用橙色
 		RenderComponent render = this.addComponent(new RenderComponent(
