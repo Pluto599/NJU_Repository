@@ -55,7 +55,7 @@ public class GameExample {
                     gameLogic.checkCollisions();
 
                     // 生成新敌人
-                    if (time > 0.1f) {
+                    if (time > 2.0f) {
                         createEnemy();
                         time = 0;
                     }
@@ -87,7 +87,7 @@ public class GameExample {
                 }
 
                 private void createEnemies() {
-                    for (int i = 0; i < 200; i++) {
+                    for (int i = 0; i < 3; i++) {
                         createEnemy();
                     }
                 }
