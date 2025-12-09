@@ -1,0 +1,39 @@
+[![Review Assignment Due Date](https://classroom.github.com/assets/deadline-readme-button-22041afd0340ce965d47ae6ef1cefeee28c7c493a6346c4f15d667ab976d596c.svg)](https://classroom.github.com/a/ExKP7bIj)
+# J06
+
+本版本新增“网络联机”示例（基于 NIO 的关键帧同步与客户端插值）。该示例仅提供部分机制参考（核心流程可运行，但非完整实现）。
+
+## 启动与模式
+- 服务器：`./run.sh`（自动启动 NIO 服务器 7777，进入 `GameScene` 权威模式）
+- 客户端：`./run_client.sh <server_ip>`（进入 `GameScene` 客户端模式，仅显示 + 上报输入）
+- 一键本机双实例：`./run_two.sh`
+
+## 基于 NIO 的网络核心技术点
+
+- 多路复用 I/O（java.nio）
+  - `Selector` + `ServerSocketChannel/SocketChannel` 实现单线程高并发 accept/read/write
+  - 非阻塞通道 + 事件驱动，避免阻塞式 per-connection 线程模型的开销
+- 消息协议（文本 JSON 行）
+  - 关键帧 KF：`{"type":"kf","t":sec,"entities":[{"id","x","y"},...]}` 简洁直观，便于调试与抓包
+  - 输入 IN：`INPUT:vx,vy` 极简文本，延迟低、解析成本小
+  - 保留扩展位：可逐步加入外观（rt/w/h/color）、事件（spawn/despawn）等
+- 客户端插值缓冲
+  - `NetworkBuffer` 以时间戳缓存关键帧，默认 120ms 延迟，按 `t` 在相邻帧间线性插值，平滑抖动
+  - 与录制回放共用解析工具 `RecordingJson`，降低实现复杂度
+- 线程与更新节奏
+  - Server：NIO 主循环 + 20Hz 广播（50ms）
+  - Client：接收线程读包入缓冲；主线程在 `GameScene` 中采样插值 → 渲染
+- 性能与稳定性
+  - 文本 JSON 便于开发验证，后期可替换为二进制（更小包体、更快解析）
+  - 背压：广播失败时跳过该连接写入并清理；接收端分行处理，防止拼包导致 UI 卡顿
+  - 时钟：以服务器时间为准，客户端维持小延迟窗口，丢帧时对最后一帧短时外推
+
+## 作业要求
+
+请在此基础上：
+
+- 将网络联机能力集成到你自己的游戏；
+- 做性能测试（可模拟大量 client）；
+- 进一步基于 actor 等并发模型优化网络与逻辑性能。
+
+**重要提醒：尽量手写代码，不依赖自动生成，考试会考！**

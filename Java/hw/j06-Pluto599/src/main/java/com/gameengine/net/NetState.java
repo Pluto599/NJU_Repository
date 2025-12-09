@@ -1,0 +1,74 @@
+package com.gameengine.net;
+
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.concurrent.atomic.AtomicInteger;
+
+public final class NetState {
+    private static final AtomicInteger clientCount = new AtomicInteger(0);
+    private static volatile float p2vx = 0f;
+    private static volatile float p2vy = 0f;
+    private static volatile float p2ShootX = 0f;
+    private static volatile float p2ShootY = 0f;
+    private static volatile String lastState = null; // 旧文本
+    private static volatile String lastKeyframeJson = null; // 新JSON KF
+    private static final ConcurrentHashMap<String, float[]> clientMirror = new ConcurrentHashMap<>();
+    private static final AtomicBoolean p2ShootRequested = new AtomicBoolean(false);
+    private NetState() {}
+    public static void clientConnected() { clientCount.incrementAndGet(); }
+    public static int getClientCount() { return clientCount.get(); }
+    public static boolean hasClient() { return clientCount.get() > 0; }
+    public static void setP2Velocity(float vx, float vy) { p2vx = vx; p2vy = vy; }
+    public static float getP2Vx() { return p2vx; }
+    public static float getP2Vy() { return p2vy; }
+    public static void requestP2Shoot(float dirX, float dirY) {
+        if (dirX == 0f && dirY == 0f) {
+            return;
+        }
+        p2ShootX = dirX;
+        p2ShootY = dirY;
+        p2ShootRequested.set(true);
+    }
+    public static boolean consumeP2Shoot(float[] out) {
+        if (out == null || out.length < 2) {
+            return false;
+        }
+        if (!p2ShootRequested.compareAndSet(true, false)) {
+            return false;
+        }
+        out[0] = p2ShootX;
+        out[1] = p2ShootY;
+        return true;
+    }
+
+    // server 侧设置当前状态（文本行，形如 STATE:id,x,y;id2,x,y）
+    public static void setLastState(String s) { lastState = s; }
+    public static String getLastState() { return lastState; }
+    public static void setLastKeyframeJson(String s) { lastKeyframeJson = s; }
+    public static String getLastKeyframeJson() { return lastKeyframeJson; }
+
+    // client 侧接收状态并更新镜像
+    public static void updateMirrorFromState(String line) {
+        if (line == null) return;
+        if (!line.startsWith("STATE:")) return;
+        String payload = line.substring(6).trim();
+        if (payload.isEmpty()) return;
+        String[] ents = payload.split(";");
+        for (String e : ents) {
+            String[] parts = e.split(",");
+            if (parts.length < 3) continue;
+            String id = parts[0];
+            try {
+                float x = Float.parseFloat(parts[1]);
+                float y = Float.parseFloat(parts[2]);
+                clientMirror.put(id, new float[]{x,y});
+            } catch (Exception ignored) {}
+        }
+    }
+
+    public static java.util.Map<String, float[]> getMirrorSnapshot() {
+        return new java.util.HashMap<>(clientMirror);
+    }
+}
+
+
