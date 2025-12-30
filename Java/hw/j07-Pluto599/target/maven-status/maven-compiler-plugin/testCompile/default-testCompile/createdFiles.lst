@@ -1,0 +1,11 @@
+com\gameengine\testsupport\TestOutputExtension.class
+com\gameengine\math\Vector2Test.class
+com\gameengine\core\GameObjectAndComponentsTest$CountingComponent.class
+com\gameengine\core\GameLogicTest.class
+com\gameengine\core\GameObjectAndComponentsTest.class
+com\gameengine\objects\ObjectsTest.class
+com\gameengine\input\InputManagerTest.class
+com\gameengine\net\NetworkBufferTest.class
+com\gameengine\save\GameSaveServiceTest.class
+com\gameengine\recording\RecordingJsonTest.class
+com\gameengine\core\GameLogicTest$CollideObject.class

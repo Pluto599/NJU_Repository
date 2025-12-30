@@ -1,0 +1,28 @@
+{
+  "width": 1024,
+  "height": 768,
+  "player": {
+    "score": 50,
+    "position": {"x": 1004.0, "y": 511.8232}
+  },
+  "enemies": [
+    {
+      "state": "Enemy",
+      "active": true,
+      "position": {"x": 870.43634, "y": 420.86157},
+      "velocity": {"x": 41.32641, "y": 28.144768}
+    },
+    {
+      "state": "Enemy",
+      "active": true,
+      "position": {"x": 764.472, "y": 603.08563},
+      "velocity": {"x": 46.723503, "y": -17.802092}
+    },
+    {
+      "state": "Enemy",
+      "active": false,
+      "position": {"x": 0.0, "y": 0.0},
+      "velocity": {"x": 0.0, "y": 0.0}
+    }
+  ]
+}

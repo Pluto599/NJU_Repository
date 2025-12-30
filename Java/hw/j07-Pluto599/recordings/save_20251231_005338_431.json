@@ -1,0 +1,22 @@
+{
+  "width": 1024,
+  "height": 768,
+  "player": {
+    "score": 50,
+    "position": {"x": 1004.0, "y": 511.8232}
+  },
+  "enemies": [
+    {
+      "state": "Enemy",
+      "active": true,
+      "position": {"x": 821.5018, "y": 387.5353},
+      "velocity": {"x": 41.326405, "y": 28.144777}
+    },
+    {
+      "state": "Enemy",
+      "active": true,
+      "position": {"x": 709.14667, "y": 624.165},
+      "velocity": {"x": 46.723507, "y": -17.802076}
+    }
+  ]
+}

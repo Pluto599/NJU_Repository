@@ -1,0 +1,18 @@
+#!/usr/bin/env sh
+set -e
+
+BASE_DIR=$(CDPATH= cd -- "$(dirname -- "$0")" && pwd)
+WRAPPER_JAR="$BASE_DIR/.mvn/wrapper/maven-wrapper.jar"
+
+if [ ! -f "$WRAPPER_JAR" ]; then
+  echo "[mvnw] Missing $WRAPPER_JAR" >&2
+  echo "[mvnw] On Windows, run: powershell -ExecutionPolicy Bypass -File .\\scripts\\download-maven-wrapper.ps1" >&2
+  exit 1
+fi
+
+JAVA_EXE="java"
+if [ -n "$JAVA_HOME" ] && [ -x "$JAVA_HOME/bin/java" ]; then
+  JAVA_EXE="$JAVA_HOME/bin/java"
+fi
+
+exec "$JAVA_EXE" -classpath "$WRAPPER_JAR" -Dmaven.multiModuleProjectDirectory="$BASE_DIR" org.apache.maven.wrapper.MavenWrapperMain "$@"

@@ -1,0 +1,20 @@
+# Fdb version 4
+["xdvipdfmx"] 0 "sciscn.xdv" "sciscn.pdf" "sciscn" 0 -1
+  "sciscn.xdv" 0 -1 0 "xelatex"
+  (generated)
+  "sciscn.pdf"
+  (rewritten before read)
+["xelatex"] 1767114955.32796 "e:/Desktop/j07-Pluto599/ssi-template/sciscn.tex" "sciscn.xdv" "sciscn" 1767114956.10677 2
+  "SCIS2026cn.cls" 1767107030 22303 8e8fad06475306f44d3bead3aea5bdf8 ""
+  "cctart.cls" 0 -1 0 ""
+  "e:/Desktop/j07-Pluto599/ssi-template/sciscn.tex" 1767114953 11951 fc109e04feb36d997b1d9659eef975e3 ""
+  "e:/Program Files/texlive/2025/texmf-dist/web2c/texmf.cnf" 1751094180 42148 61becc7c670cd061bb319c643c27fdd4 ""
+  "e:/Program Files/texlive/2025/texmf-var/web2c/xetex/xelatex.fmt" 1751099379 5639977 e5aa55860c5b63f68fcf58a6c86e228c ""
+  "e:/Program Files/texlive/2025/texmf.cnf" 1751099270 713 e69b156964470283e0530f5060668171 ""
+  "sciscn.aux" 1767114955 32 3985256e7290058c681f74d7a3565a19 "xelatex"
+  "sciscn.tex" 1767114953 11951 fc109e04feb36d997b1d9659eef975e3 ""
+  (generated)
+  "sciscn.aux"
+  "sciscn.log"
+  "sciscn.xdv"
+  (rewritten before read)
